@@ -4,6 +4,6 @@ A Python + Selenium web bot designed to quickly input form data from a csv file.
 *Disclaimer: this project is made for educational purposes only*
 
 ## How it works:
-Each line in data.csv contains three parameters - attribute type, attribute name and input value
-For example a line like: id;surname;Smith - searches for an HTML input tag with id equal to surname and fills it with value "Smith"
-One data file can contain multiple values
+* Each line in data.csv contains three parameters - attribute type, attribute name and input value
+* For example a line like: id;surname;Smith - searches for an HTML input tag with id equal to surname and fills it with value "Smith"
+* One data file can contain multiple values
