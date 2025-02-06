@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 import csv
+import os
 
 
 def normal_open():
@@ -15,7 +16,7 @@ def normal_open():
 
 
 def profile_open():
-    chrome_profile_path = "C:\\Users\\48504\\AppData\\Local\\Google\\Chrome\\User Data"
+    chrome_profile_path = os.environ["CHROME_PROFILE_PATH"]
     options = Options()
     options.add_experimental_option("detach", True)
     options.add_argument('user-data-dir=' + chrome_profile_path)
@@ -49,7 +50,7 @@ def csv_to_list(filename: str):
     try:
         file = open(filename)
     except FileNotFoundError:
-        print("Błąd: nieprawidłowa scieżka do pliku csv z danymi")
+        print("Error: invalid path to data file")
         exit(-1)
     data = []
     for row in csv.reader(file):
@@ -59,7 +60,7 @@ def csv_to_list(filename: str):
 
 
 data_list = csv_to_list("data.csv")
-url = input("Podaj link do strony edycji informacji o aukcji: ")
+url = input("Please provide a link: ")
 driver = profile_open()
 driver.get(url)
 
@@ -75,7 +76,7 @@ for data_line in data_list:
     elif data_separated[0] == "name":
         current_element = driver.find_element(by=By.NAME, value=data_separated[1])
     else:
-        print("Nieprawidłowy typ atrybutu w pliku csv")
+        print("Invalid attribute type in data file")
         exit(-1)
     current_element.clear()
     current_element.send_keys(data_separated[2])
